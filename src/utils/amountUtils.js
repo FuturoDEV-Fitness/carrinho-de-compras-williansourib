@@ -4,7 +4,7 @@ function validarAmount(amount) {
     if (!amountRegex.test(amount)) {
         return null
     }
-    return amount 
+    return amount
 }
 
 module.exports = { validarAmount }

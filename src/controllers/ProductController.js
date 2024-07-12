@@ -65,7 +65,7 @@ class productController {
 
     async listarComDetalhes(request, response) {
         try {
-            const id  = request.params.id;
+            const id = request.params.id;
 
             const product = await conexao.query(`
                 SELECT 
