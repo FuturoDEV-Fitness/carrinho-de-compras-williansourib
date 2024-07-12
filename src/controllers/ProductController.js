@@ -62,6 +62,39 @@ class productController {
             response.status(500).json({ message: "ERRO INTERNO NO SERVIDOR" })
         }
     }
+
+    async listarComDetalhes(request, response) {
+        try {
+            const id  = request.params.id;
+
+            const product = await conexao.query(`
+                SELECT 
+                    products.name AS nome_produto, 
+                    products.amount AS quantidade, 
+                    products.color AS cor, 
+                    products.voltage AS tensão,
+                    products.description AS descrição,
+                    categories.name AS categoria 
+                FROM 
+                    products 
+                JOIN 
+                    categories 
+                ON 
+                    products.category_id = categories.id
+                WHERE
+                    products.id = $1
+            `, [id]);
+
+            if (product.rows.length === 0) {
+                return response.status(404).json({ message: 'Produto não encontrado' });
+            }
+
+            response.status(200).json(product.rows[0])
+        } catch (error) {
+            console.log(error)
+            response.status(500).json({ message: "ERRO INTERNO NO SERVIDOR" })
+        }
+    }
 }
 
 module.exports = new productController()
