@@ -34,6 +34,34 @@ class productController {
         }
 
     }
+
+    async listar(request, response) {
+        try {
+            const filtros = request.query;
+
+            if (filtros.filtro) {
+                const product = await conexao.query(
+                    `
+                select * from products
+                where nome ilike $1
+                or
+                descricao ilike $1
+            `,
+                    [`%${filtros.filtro}%`]
+                );
+
+                response.json(product.rows);
+            } else {
+                const product = await conexao.query(`
+                select * from products
+         `);
+                response.status(200).json(product.rows);
+            }
+        } catch (error) {
+            console.log(error)
+            response.status(500).json({ message: "ERRO INTERNO NO SERVIDOR" })
+        }
+    }
 }
 
 module.exports = new productController()
