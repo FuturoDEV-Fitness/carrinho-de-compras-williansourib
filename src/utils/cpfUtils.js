@@ -5,6 +5,6 @@ function validarEFormatarCpf(cpf) {
         return null;
     }
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
-}
+} // valida e formata o cpf
 
 module.exports = { validarEFormatarCpf }

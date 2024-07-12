@@ -1,14 +1,14 @@
 const conexao = require('../db/conexao')
 const { validarEFormatarCpf } = require('../utils/cpfUtils');
 const { formatarContact } = require('../utils/contactUtils');
-const { validarEFormatarEmail } = require('../utils/emailUtils');
+const { validarEmail } = require('../utils/emailUtils');
 
 class clientController {
     async criar(request, response) {
         try {
             const dados = request.body
 
-            const emailFormatado = validarEFormatarEmail(dados.email)
+            const emailFormatado = validarEmail(dados.email)
             const cpfFormatado = validarEFormatarCpf(dados.cpf)
             const contactFormatado = formatarContact(dados.contact)
             const cpfEXistente = await conexao.query

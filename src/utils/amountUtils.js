@@ -5,6 +5,6 @@ function validarAmount(amount) {
         return null
     }
     return amount
-}
+} // valida o amount
 
 module.exports = { validarAmount }

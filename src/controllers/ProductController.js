@@ -4,7 +4,7 @@ const { validarId } = require('../utils/idUtils');
 
 class productController {
 
-    async criar(request, response) {
+    async criar(request, response) { //metodo para criar os produtos
 
         try {
             const dados = request.body
@@ -35,7 +35,7 @@ class productController {
 
     }
 
-    async listar(request, response) {
+    async listar(request, response) { //metodo para listar os produtos
         try {
             const filtros = request.query;
 
@@ -63,7 +63,7 @@ class productController {
         }
     }
 
-    async listarComDetalhes(request, response) {
+    async listarComDetalhes(request, response) { //metodo para listar um produto com detalhes
         try {
             const id = request.params.id;
 

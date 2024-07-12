@@ -8,6 +8,6 @@ function formatarContact(contact) {
     } else {
         return null;
     }
-}
+} // formata o contato
 
 module.exports = { formatarContact }

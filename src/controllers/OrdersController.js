@@ -1,7 +1,7 @@
 const conexao = require('../db/conexao');
 
 class orderController {
-    async criar(request, response) {
+    async criar(request, response) { //metodo para criar os pedidos
         try {
             const { client_id, address, observations, items } = request.body;
 
@@ -23,7 +23,7 @@ class orderController {
             const orderResult = await conexao.query(`
                 INSERT INTO orders (client_id, total, address, observations)
                 VALUES ($1, $2, $3, $4) returning id
-            `, [client_id, total, address, observations]);
+            `, [client_id, total, address, observations]); // retorna o id do pedido
 
             const orderId = orderResult.rows[0].id;
 
@@ -34,7 +34,7 @@ class orderController {
                     INSERT INTO orders_items (order_id, product_id, amount, price)
                     VALUES ($1, $2, $3, $4)
                 `, [orderId, product_id, amount, price]);
-            }
+            } // insere os itens no pedido
 
             response.status(201).json({ message: 'Pedido criado com sucesso!', order_id: orderId });
         } catch (error) {
@@ -43,7 +43,7 @@ class orderController {
         }
     }
 
-    async listar(request, response) {
+    async listar(request, response) { //metodo para listar um pedido com detalhes
         try {
             const id = request.params.id;
 
@@ -62,7 +62,7 @@ class orderController {
                     orders.client_id = clients.id
                 WHERE
                     orders.id = $1;
-            `, [id]);
+            `, [id]); // retorna as informacoes do pedido
 
             if (orderResult.rows.length === 0) {
                 return response.status(404).json({ message: 'Pedido de compra não encontrado' });
@@ -84,7 +84,7 @@ class orderController {
                     orders_items.product_id = products.id
                 WHERE
                     orders_items.order_id = $1;
-            `, [id]);
+            `, [id]); // retorna os itens do pedido
 
             order.items = itemsResult.rows;
 

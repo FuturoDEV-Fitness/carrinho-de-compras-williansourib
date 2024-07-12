@@ -5,6 +5,6 @@ function validarId(id) {
         return null
     }
     return id
-}
+} // valida o id
 
 module.exports = { validarId }
